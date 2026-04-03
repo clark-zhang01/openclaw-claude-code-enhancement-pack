@@ -13,6 +13,12 @@ class ToolPolicy:
     kind: str
     requires_confirmation: bool
 
+DEFAULT_TOOL_POLICIES = (
+    ToolPolicy(name="read", kind="read-only", requires_confirmation=False),
+    ToolPolicy(name="write", kind="write-capable", requires_confirmation=False),
+    ToolPolicy(name="exec", kind="destructive", requires_confirmation=True),
+)
+
 class ToolRouter:
     """Manages tool routing and intercepts tool calls for policy enforcement."""
     def __init__(self, policies: tuple[ToolPolicy, ...] = DEFAULT_TOOL_POLICIES) -> None:
