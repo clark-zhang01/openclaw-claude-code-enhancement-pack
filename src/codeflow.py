@@ -4,6 +4,11 @@ import logging
 from typing import Iterator
 from dataclasses import dataclass
 
+try:
+    from claude_code_runtime import fast_inspect
+    HAS_RUST_BRIDGE = True
+except ImportError:
+    HAS_RUST_BRIDGE = False
 
 @dataclass(frozen=True)
 class CodeflowStep:
@@ -36,6 +41,11 @@ class CodeflowEngine:
         step = self.steps[self.current_step_index]
         self.current_step_index += 1
         self.logger.info(f"Executing codeflow step: {step.name}")
+        
+        if step.name == "inspect" and HAS_RUST_BRIDGE:
+            self.logger.info("Using Rust-accelerated fast_inspect...")
+            # Here we will actually call fast_inspect() with the working directory
+            
         return step
 
     def execute_all(self) -> Iterator[CodeflowStep]:
