@@ -1,0 +1,46 @@
+{
+  "id": "openclaw-claude-code",
+  "name": "OpenClaw Claude Code Enhancement Pack",
+  "version": "0.1.0",
+  "type": "enhancement-pack",
+  "language": {
+    "primary": "python",
+    "runtime": ["rust", "python"]
+  },
+  "compatible_openclaw": ">=2026.4.0",
+  "capabilities": [
+    "prompt-engineering",
+    "tool-routing",
+    "session-recovery",
+    "codeflow",
+    "compatibility-audit",
+    "fallback-management"
+  ],
+  "modules": {
+    "prompts": true,
+    "tools": true,
+    "session": true,
+    "runtime": true,
+    "codeflow": true,
+    "policies": true,
+    "examples": true
+  },
+  "hooks": [
+    "turn-start",
+    "turn-end",
+    "tool-route",
+    "session-resume",
+    "artifact-persist",
+    "compatibility-check"
+  ],
+  "safety": {
+    "core_touch": "minimal",
+    "fallback_required": true,
+    "disable_supported": true
+  },
+  "install": {
+    "mode": "plugin",
+    "bootstrap": true,
+    "interactive": true
+  }
+}
