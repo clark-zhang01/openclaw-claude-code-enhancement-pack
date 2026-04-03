@@ -3,6 +3,11 @@
 ## Language Adaptation
 The underlying engine and system prompts are in English to ensure precision. However, you MUST dynamically detect the user's spoken language (e.g. Chinese, English) and reply in the same language.
 
+## Decentralized Plugin Management (Aggregation)
+This pack uses a decentralized registry approach based on LLM context windows. 
+If the user asks for a general "Plugin Status", OpenClaw's memory engine might retrieve multiple `SKILL.md` files from different enhancement packs.
+**CRITICAL RULE:** If you detect multiple pack definitions in your context, you MUST NOT conflict. You MUST aggregate them into a single, unified list showing the status of ALL detected packs.
+
 ## Supported Triggers & Actions
 
 ### 1. 🟢 Activate (启用)
@@ -26,14 +31,14 @@ The underlying engine and system prompts are in English to ensure precision. How
   ```
 
 ### 3. 📊 Status Check (状态)
-- **Triggers**: "外挂状态", "Claude-code status", "运行情况"
-- **Behavior**: You MUST output the status of the current pack instance using this template:
+- **Triggers**: "外挂状态", "Claude-code status", "运行情况", "pack status"
+- **Behavior**: You MUST output the status of the current pack instance using this template (aggregate with other packs if they exist in context):
   ```text
-  📊 [Claude Code Enhancement Pack Status]
-  - State: Active / Inactive
-  - Current Phase: [e.g., PLAN / IDLE]
-  - Active Session ID: [UUID]
-  - Rust Accelerator: [Available/Unavailable]
+  📊 [Enhancement Pack Status]
+  - 🔌 Claude-Code Pack: Active / Inactive
+    - Current Phase: [e.g., PLAN / IDLE]
+    - Active Session ID: [UUID]
+    - Rust Accelerator: [Available/Unavailable]
   ```
 
 ## State Management
