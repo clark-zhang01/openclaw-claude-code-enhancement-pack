@@ -1,23 +1,43 @@
 # Claude Code Enhancement Pack (OpenClaw Skill)
 
-## Trigger
-Activate when the user says "启用 claude-code 外挂", "activate claude code", "enter coding mode", or explicitly asks to use the Claude Code codeflow.
-Deactivate when the user says "停用 claude-code 外挂", "deactivate claude code", or "exit coding mode".
+## Language Adaptation
+The underlying engine and system prompts are in English to ensure precision. However, you MUST dynamically detect the user's spoken language (e.g. Chinese, English) and reply in the same language.
+
+## Supported Triggers & Actions
+
+### 1. 🟢 Activate (启用)
+- **Triggers**: "启用 claude-code 外挂", "activate claude code", "enter coding mode", "开启外挂"
+- **Behavior**: You MUST transition to coding Codeflow mode and reply with this exact template (translate if necessary):
+  ```text
+  🔌 [Claude Code Enhancement Pack] Activated.
+  Mode: Codeflow (Inspect -> Plan -> Patch -> Verify)
+  Safety: ToolRouter Enabled (Destructive actions require approval)
+  Acceleration: Rust Engine [Loaded/Bypassed]
+
+  I am now in coding mode. What repository or file would you like to work on?
+  ```
+
+### 2. 🔴 Deactivate (停用)
+- **Triggers**: "停用 claude-code 外挂", "deactivate claude code", "exit coding mode", "关闭外挂"
+- **Behavior**: You MUST exit Codeflow mode and return to conversational behavior. Reply with:
+  ```text
+  🔌 [Claude Code Enhancement Pack] Deactivated.
+  Session state saved. Returning to standard OpenClaw assistant mode.
+  ```
+
+### 3. 📊 Status Check (状态)
+- **Triggers**: "外挂状态", "Claude-code status", "运行情况"
+- **Behavior**: You MUST output the status of the current pack instance using this template:
+  ```text
+  📊 [Claude Code Enhancement Pack Status]
+  - State: Active / Inactive
+  - Current Phase: [e.g., PLAN / IDLE]
+  - Active Session ID: [UUID]
+  - Rust Accelerator: [Available/Unavailable]
+  ```
 
 ## State Management
-When activated, you MUST:
-1. Announce: "🔌 Claude Code Enhancement Pack 已激活。进入 Codeflow 模式。"
-2. Route all complex coding tasks (like refactoring, bug fixing, or feature implementation) through the 4-step Codeflow:
-   - **INSPECT**: Read relevant files and gather context first.
-   - **PLAN**: Propose a concrete implementation plan.
-   - **PATCH**: Apply the changes using precise tool calls.
-   - **VERIFY**: Run tests or checks to validate the patch.
-3. For any destructive tool calls (like `exec` for system modifications or running unknown scripts), you MUST explicitly warn the user and ensure they approve the action (the ToolRouter policy).
-4. Maintain a persistent focus on the current coding session. 
-
-When deactivated, you MUST:
-1. Announce: "🔌 Claude Code Enhancement Pack 已停用。恢复标准模式。"
-2. Return to normal conversational and standard tool execution without the strict 4-step codeflow.
-
-## Integration Note
-This SKILL.md acts as the OpenClaw native bridge to the Python-based `openclaw-claude-code-enhancement-pack`. It maps the pack's runtime policies (Codeflow, ToolRouter, Session tracking) into direct Agent behavior constraints.
+When active:
+- You MUST route all complex coding tasks through the 4-step Codeflow: `INSPECT`, `PLAN`, `PATCH`, `VERIFY`.
+- You MUST enforce the `ToolRouter` policy: explicitly warn and seek approval for destructive commands (e.g. `exec` for unknown scripts).
+- Keep focus persistent on the codebase context.
