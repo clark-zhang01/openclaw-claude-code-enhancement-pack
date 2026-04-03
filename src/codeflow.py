@@ -10,6 +10,14 @@ class CodeflowStep:
     name: str
     description: str
 
+DEFAULT_CODEFLOW = (
+    CodeflowStep(name="inspect", description="Inspect the repository and gather context"),
+    CodeflowStep(name="plan", description="Plan the change before editing"),
+    CodeflowStep(name="patch", description="Apply the implementation change"),
+    CodeflowStep(name="verify", description="Run validation after the change"),
+    CodeflowStep(name="summarize", description="Summarize the change and follow-ups"),
+)
+
 class CodeflowEngine:
     """Manages execution of standard code-oriented workflows."""
     
@@ -40,12 +48,3 @@ class CodeflowEngine:
             # Here we would integrate with the ToolRouter or LLM prompt engine
             self.logger.debug(f"Completed step {step.name}.")
         self.logger.info("Codeflow execution finished.")
-
-
-DEFAULT_CODEFLOW = (
-    CodeflowStep(name="inspect", description="Inspect the repository and gather context"),
-    CodeflowStep(name="plan", description="Plan the change before editing"),
-    CodeflowStep(name="patch", description="Apply the implementation change"),
-    CodeflowStep(name="verify", description="Run validation after the change"),
-    CodeflowStep(name="summarize", description="Summarize the change and follow-ups"),
-)
