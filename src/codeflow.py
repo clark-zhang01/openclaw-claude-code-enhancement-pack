@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import logging
 from typing import Iterator
+from dataclasses import dataclass
 
 
 @dataclass(frozen=True)
