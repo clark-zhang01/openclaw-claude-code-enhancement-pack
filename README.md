@@ -1,8 +1,8 @@
 # OpenClaw Claude Code Enhancement Pack
 
-Updated: 2026-04-03 15:34 (Australia/Adelaide)
+Updated: 2026-04-03 16:05 (Australia/Adelaide)
 
-This repository will host the first public OpenClaw enhancement pack for Claude Code-style capabilities.
+This repository hosts the first public OpenClaw enhancement pack for Claude Code-style capabilities.
 
 ## What this pack is
 
@@ -36,6 +36,7 @@ openclaw-claude-code-enhancement-pack/
 ├── manifest.json
 ├── pyproject.toml
 ├── .gitignore
+├── docs/
 ├── src/
 ├── prompts/
 ├── tools/
@@ -60,8 +61,8 @@ This repo is being prepared as a public, installable pack. The first implementat
 
 ## Compatibility
 
-The pack will declare its compatible OpenClaw version range in `manifest.json` and will support fallback / disable behavior when compatibility changes.
+The pack declares its compatible OpenClaw version range in `manifest.json` and supports fallback / disable behavior when compatibility changes.
 
 ## Status
 
-This repository is currently in initialization mode.
+This repository is in active preparation and initial implementation.
